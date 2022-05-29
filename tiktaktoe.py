@@ -1,53 +1,44 @@
 """this project is a game
 project"""
-
 import pygame
-from pygame import time
+import pygame_menu
 from pygame.locals import *
 
 import sys
 
-pygame.init()
-screen = pygame.display.set_mode([600,600])
+# define functions for menu switching
+def start_the_game():
+    print("Here will come the text for the game tetris!")
 
+
+
+
+pygame.init()
+
+
+screen = pygame.display.set_mode([600, 600])
 pygame.display.set_caption("TIK-TAC-TOE")
-#Startmenu
 
 # Design Menu
 # create font, texts for start menu
-screen.fill((188, 238, 104))
+# interactive menu buttons
 
-fontStartmenu = pygame.font.SysFont("chalkduster.ttf", 75)
-img_Play = fontStartmenu.render('PLAY', True, (0, 0, 0))
-rect = img_Play.get_rect()
-pygame.draw.rect(img_Play, (0, 0, 0), rect, 3)
-screen.blit(img_Play, (200, 100))
+menu = pygame_menu.Menu('TIC-TAC-TOE (Python-Edition)', 600, 600,
+                        theme=pygame_menu.themes.THEME_BLUE)
 
-img_Option = fontStartmenu.render('OPTION', True, (0, 0, 0))
-rect = img_Option.get_rect()
-pygame.draw.rect(img_Option, (0, 0, 0), rect, 3)
-screen.blit(img_Option, (200, 200))
-
-img_Credits = fontStartmenu.render('CREDITS', True, (0, 0, 0))
-rect = img_Credits.get_rect()
-pygame.draw.rect(img_Credits, (0, 0, 0), rect, 3)
-screen.blit(img_Credits, (200, 300))
-
-img_PlayRules = fontStartmenu.render('PLAY RULES', True, (0, 0, 0))
-rect = img_PlayRules.get_rect()
-pygame.draw.rect(img_PlayRules, (0, 0, 0), rect, 3)
-screen.blit(img_PlayRules, (200, 400))
-
+menu.add.button('Play', start_the_game)
+menu.add.button('OPTION', start_the_game)
+menu.add.button('CREDITS', start_the_game)
+menu.add.button('RULES', start_the_game)
+menu.add.button('QUIT', pygame_menu.events.EXIT)
+menu.mainloop(screen)
 pygame.display.update()
-
 # running menu until player quit
 running = True
-while running:
+while menu == True:
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
         elif event.type == QUIT:
             running = False
-
-
